@@ -17,12 +17,6 @@ def dashboard(request):
     return render(request, 'dashboard.html')
 
 
-"""dashboard
-listar_treinos
-detalhe_treino
-editar_treino"""
-
-
 @login_required
 def listar_treinos(request):
 
@@ -39,9 +33,6 @@ def listar_treinos(request):
         'exercicios': exercicios,
     }
     return render(request, 'workouts/listar_treinos.html', context)
-# Criar treino (professor)
-
-# Views de Treino_exercicio
 
 
 @login_required

@@ -1,76 +1,106 @@
-.navbar-brand {
-    letter-spacing: 2px;
-    text-transform: uppercase; 
-    font-weight: 800; 
+/* 1. Variáveis Globais */
+:root {
+    --bg-body: #f8f9fa;
+    --card-bg: #ffffff;
+    --text-color: #212529;
+    --navbar-main: #ddda17; 
+    --input-bg: #ffffff;
+    --input-text: #495057;
+    --border-color: #ced4da;
 }
 
-.nav-link {
-    letter-spacing: 1px;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-}
-.navbar-nav .nav-link {
-    transition: color 0.3s ease;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    font-weight: 500;
+/* 2. Tema Escuro (Suave: Azul e Roxo) */
+[data-bs-theme="dark"] {
+    --bg-body: #0f111a;        
+    --card-bg: #161925;        
+    --text-color: #d1d5db;     
+    --navbar-main: #1c1427;    
+    --input-bg: #1f2235;      
+    --input-text: #e5e7eb;
+    --border-color: #2d324a;   
+    
+    /* Integração nativa com Bootstrap 5.3 */
+    --bs-body-bg: var(--bg-body);
+    --bs-body-color: var(--text-color);
+    --bs-tertiary-bg: var(--card-bg);
+    --bs-emphasis-color: #a78bfa; 
 }
 
-
-.btn {
-    border-radius: 20px;
-    font-weight: 600;
+/* 3. Estilos de Base */
+body {
+    background-color: var(--bg-body);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
 }
 
-/* Navbar Customizada */
+/* 4. Cards e Blocos de Conteúdo */
+.card, .bg-light, .bg-body-tertiary {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+/* 5. Navbar */
 .navbar {
-    background-color: #ddda17 !important; 
+    background-color: var(--navbar-main) !important; 
     border-bottom: 3px solid #343a40;
-    padding-top: 1rem;    
-    padding-bottom: 1rem; 
-}
-
-.navbar .navbar-nav .nav-link {
-    color: #1a1a1a !important; 
-    font-weight: 600;
-    margin-left: 25px !important;  
-    margin-right: 25px !important; 
-    display: inline-block; 
-}
-
-.navbar-light .navbar-nav .nav-link:hover {
-    color: #555555 !important;
-    text-decoration: underline;
+    padding: 1rem 0;
 }
 
 .navbar-brand {
     color: #1a1a1a !important;
     font-weight: 800;
     font-size: 1.4rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
+.navbar .nav-link {
+    color: #1a1a1a !important; 
+    font-weight: 600;
+    margin: 0 15px; 
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+}
+
+[data-bs-theme="dark"] .navbar .nav-link,
+[data-bs-theme="dark"] .navbar-brand {
+    color: #a78bfa !important;
+}
+
+/* 6. Formulários (Inputs) */
 input[type="text"], 
 input[type="email"], 
 input[type="password"], 
 input[type="number"], 
-select {
+select, textarea {
     display: block;
     width: 100%;
-    height: calc(1.5 em + .75 rem + 2 px);
-    padding: .375 rem .75 rem;
+    padding: .375rem .75rem;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    border: 1px solid #ced4da;
+    color: var(--input-text) !important;
+    background-color: var(--input-bg) !important;
+    border: 1px solid var(--border-color);
     border-radius: .25rem;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     margin-bottom: 15px; 
 }
 
 input:focus {
-    border-color: #ddda17; 
+    border-color: #ddda17 !important; 
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(221, 218, 23, 0.25);
+}
+
+/* 7. Utilitários */
+.btn {
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+[data-bs-theme="dark"] .text-muted {
+    color: #7d84a3 !important; 
 }
