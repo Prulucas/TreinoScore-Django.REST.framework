@@ -1,13 +1,56 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-6 text-left">
+
+<div class="row align-items-center mb-5"> <div class="col-md-6 text-left">
         {% if user.is_authenticated %}
-            <h1 class="display-4">Olá {{ user.first_name|default:user.username }}!</h1>
+            <h1 class="display-4 font-weight-bold">Olá, {{ user.first_name|default:user.username }}!</h1>
         {% endif %}
-        <h3 class="display-5">Bem-vindo ao TreinoScore</h3>
+        <h3 class="display-5 text-secondary">Bem-vindo ao TreinoScore</h3>
         <p class="lead">Seu progresso começa aqui.</p>
+    </div>
+    <div class="col-md-6 text-right d-none d-md-block">
+        <i class="fas fa-dumbbell fa-5x text-primary opacity-25"></i>
+    </div>
+</div>
+<div class="row mb-5"></div>
+<div class="row mb-5"></div>
+<div class="row mb-5"></div>
+<div class="row mb-5"></div>
+<div class="row mb-5"></div>
+<div class="row mb-5"></div>
+<div class="py-4 bg-light rounded shadow-sm"> <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h2 class="mb-4">O que é o TreinoScore?</h2>
+                <p class="text-muted" style="font-size: 1.1rem; line-height: 1.8;">
+                    O <strong>TreinoScore</strong> é a sua plataforma definitiva para gestão e acompanhamento de treinos. 
+                    Nossa missão é conectar professores e alunos de forma eficiente, eliminando as fichas de papel 
+                    e trazendo inteligência para cada repetição.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4 text-center">
+            <div class="col-md-4">
+                <div class="p-3">
+                    <h5 class="text-primary">Para Professores</h5>
+                    <p class="small">Crie treinos personalizados, gerencie seu catálogo de exercícios e acompanhe a evolução de cada aluno em tempo real.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3">
+                    <h5 class="text-primary">Para Alunos</h5>
+                    <p class="small">Acesse sua ficha de qualquer lugar, visualize execuções corretas e mantenha o foco na sua meta diária.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3">
+                    <h5 class="text-primary">Evolução Constantemente</h5>
+                    <p class="small">Analise seu histórico e ajuste suas cargas. O TreinoScore transforma seus dados em motivação.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
