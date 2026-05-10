@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: a4;
+            margin: 1cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #007bff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+        .info-table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        /* Estilo da Tabela de Exercícios */
+        .table-exercicios {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table-exercicios th {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-size: 12px;
+        }
+        .table-exercicios td {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            font-size: 12px;
+        }
+        .text-center { text-align: center; }
+        .footer {
+            margin-top: 30px;
+            font-size: 10px;
+            text-align: center;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>TREINO SCORE</h1>
+        <h3>Ficha de Treino: {{ treino.title }}</h3>
+    </div>
+
+    <table class="info-table">
+        <tr>
+            <td><strong>Aluno:</strong> {{ treino.student.get_full_name|default:treino.student.email }}</td>
+            <td style="text-align: right;"><strong>Dia:</strong> {{ treino.get_day_display }}</td>
+        </tr>
+        <tr>
+            <td><strong>Professor:</strong> {{ treino.teacher.get_full_name }}</td>
+            <td style="text-align: right;"><strong>Data:</strong> {% now "d/m/Y" %}</td>
+        </tr>
+    </table>
+
+    <table class="table-exercicios">
+        <thead>
+            <tr>
+                <th width="10%">Ordem</th>
+                <th width="40%">Exercício</th>
+                <th width="15%" class="text-center">Séries</th>
+                <th width="15%" class="text-center">Reps</th>
+                <th width="10%" class="text-center">Peso</th>
+                <th width="10%" class="text-center">Descanso</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in exercicios %}
+            <tr>
+                <td class="text-center">{{ item.order }}º</td>
+                <td><strong>{{ item.exercicio.title }}</strong></td>
+                <td class="text-center">{{ item.series }}</td>
+                <td class="text-center">{{ item.repetitions }}</td>
+                <td class="text-center">{{ item.weight|default:"--" }} kg</td>
+                <td class="text-center">{{ item.rest_seconds }}s</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="footer">
+        <p>TreinoScore - Seu progresso começa aqui.</p>
+    </div>
+
+</body>
+</html>

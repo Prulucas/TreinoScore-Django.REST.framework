@@ -7,6 +7,9 @@ from django.contrib.auth.decorators import user_passes_test
 from users.permissions import is_teacher_or_admin
 from django.views.decorators.http import require_POST
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 
 @login_required
@@ -109,6 +112,28 @@ def treino_view(request, pk):
         'exercicios': exercicios
     }
     return render(request, 'workouts/treino_view.html', context)
+
+
+@login_required
+def gerar_pdf_treino(request, pk):
+    treino = get_object_or_404(Treino, pk=pk)
+    exercicios = TreinoExercicio.objects.filter(
+        treino=treino).order_by('order')
+
+    template_path = 'workouts/pdf_treino.html'
+    context = {'treino': treino, 'exercicios': exercicios}
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="Treino_{treino.title}.pdf"'
+
+    template = get_template(template_path)
+    html = template.render(context)
+
+    pisa_status = pisa.CreatePDF(html, dest=response)
+
+    if pisa_status.err:
+        return HttpResponse('Erro ao gerar PDF', status=400)
+    return response
 
 
 @login_required

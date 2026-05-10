@@ -12,6 +12,8 @@ urlpatterns = [
     path('treino/exercicio/remover/<int:pk>/',
          views.remover_exercicio_do_treino, name='remover_exercicio'),
     path('treino/<int:pk>/', views.treino_view, name='treino_view'),
+    path('treino/gerar_pdf_treino/<int:pk>',
+         views.gerar_pdf_treino, name='gerar_pdf_treino'),
     path('treino/deletar/<int:pk>/', views.treino_delete, name='treino_delete'),
     path('create_exercise/', views.exercicio_create, name='exercicio_form'),
     path('exercicio/deletar/<int:pk>/',
