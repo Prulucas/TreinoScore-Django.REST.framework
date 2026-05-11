@@ -1,106 +1,142 @@
-/* 1. Variáveis Globais */
+/* ==========================================================================
+   1. VARIÁVEIS GLOBAIS (MODO CLARO)
+   ========================================================================== */
 :root {
     --bg-body: #f8f9fa;
     --card-bg: #ffffff;
-    --text-color: #212529;
-    --navbar-main: #ddda17; 
+    --text-main: #212529;
+    --text-muted: #6c757d;
+    --navbar-main: #ddda17; /* Amarelo TreinoScore */
+    --navbar-text: #1a1a1a;
     --input-bg: #ffffff;
-    --input-text: #495057;
-    --border-color: #ced4da;
+    --input-border: #ced4da;
+    --accent-color: #ddda17;
 }
 
-/* 2. Tema Escuro (Suave: Azul e Roxo) */
+/* ==========================================================================
+   2. VARIÁVEIS MODO ESCURO (MIDNIGHT SOFT)
+   ========================================================================== */
 [data-bs-theme="dark"] {
-    --bg-body: #0f111a;        
-    --card-bg: #161925;        
-    --text-color: #d1d5db;     
-    --navbar-main: #1c1427;    
-    --input-bg: #1f2235;      
-    --input-text: #e5e7eb;
-    --border-color: #2d324a;   
-    
-    /* Integração nativa com Bootstrap 5.3 */
+    /* Tons de azul cinzento profundos para suavidade */
+    --bg-body: #0f111a;        /* Fundo principal */
+    --card-bg: #161925;        /* Cards levemente mais claros que o fundo */
+    --text-main: #d1d5db;      /* Cinza claro (não branco puro) */
+    --text-muted: #94a3b8;     /* Texto secundário azulado */
+    --navbar-main: #13151f;    /* Navbar escura profunda */
+    --navbar-text: #a78bfa;    /* Links em Lavanda suave */
+    --input-bg: #1f2235;
+    --input-border: #2d324a;
+    --accent-color: #ddda17;
+
+    /* Sobrescrevendo nativos do Bootstrap 5.3 */
     --bs-body-bg: var(--bg-body);
-    --bs-body-color: var(--text-color);
+    --bs-body-color: var(--text-main);
     --bs-tertiary-bg: var(--card-bg);
-    --bs-emphasis-color: #a78bfa; 
+    --bs-border-color: var(--input-border);
+    --bs-emphasis-color: var(--navbar-text);
 }
 
-/* 3. Estilos de Base */
+/* ==========================================================================
+   3. ESTILOS GERAIS E BODY
+   ========================================================================== */
 body {
     background-color: var(--bg-body);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* 4. Cards e Blocos de Conteúdo */
-.card, .bg-light, .bg-body-tertiary {
+/* Forçar fundos de elementos que usam bg-light ou cards */
+.card, .bg-light, .bg-body-tertiary, .list-group-item {
     background-color: var(--card-bg) !important;
-    color: var(--text-color) !important;
-    border: 1px solid var(--border-color) !important;
+    color: var(--text-main) !important;
+    border-color: var(--input-border) !important;
+    transition: all 0.3s ease;
 }
 
-/* 5. Navbar */
+/* ==========================================================================
+   4. NAVBAR CUSTOMIZADA
+   ========================================================================== */
 .navbar {
-    background-color: var(--navbar-main) !important; 
-    border-bottom: 3px solid #343a40;
-    padding: 1rem 0;
+    background-color: var(--navbar-main) !important;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+    padding: 0.8rem 1rem;
+    transition: background-color 0.3s ease;
 }
 
 .navbar-brand {
-    color: #1a1a1a !important;
+    color: var(--navbar-text) !important;
     font-weight: 800;
     font-size: 1.4rem;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
 }
 
 .navbar .nav-link {
-    color: #1a1a1a !important; 
+    color: var(--navbar-text) !important;
     font-weight: 600;
-    margin: 0 15px; 
-    transition: all 0.3s ease;
-    font-size: 0.95rem;
+    margin: 0 10px;
     text-transform: uppercase;
+    font-size: 0.9rem;
+    transition: opacity 0.3s;
 }
 
-[data-bs-theme="dark"] .navbar .nav-link,
-[data-bs-theme="dark"] .navbar-brand {
-    color: #a78bfa !important;
+.navbar .nav-link:hover {
+    opacity: 0.7;
 }
 
-/* 6. Formulários (Inputs) */
+/* ==========================================================================
+   5. FORMULÁRIOS E INPUTS
+   ========================================================================== */
 input[type="text"], 
 input[type="email"], 
 input[type="password"], 
 input[type="number"], 
 select, textarea {
-    display: block;
-    width: 100%;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--input-text) !important;
     background-color: var(--input-bg) !important;
-    border: 1px solid var(--border-color);
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-    margin-bottom: 15px; 
+    color: var(--text-main) !important;
+    border: 1px solid var(--input-border) !important;
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input:focus {
-    border-color: #ddda17 !important; 
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(221, 218, 23, 0.25);
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 0.25rem rgba(221, 218, 23, 0.25) !important;
+    outline: none;
 }
 
-/* 7. Utilitários */
+/* Estilo para o placeholder (texto de fundo do input) */
+::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   6. BOTÕES E UTILITÁRIOS
+   ========================================================================== */
 .btn {
-    border-radius: 20px;
+    border-radius: 50px; /* Botões arredondados ficam mais modernos */
+    padding: 0.5rem 1.5rem;
     font-weight: 600;
+    transition: transform 0.2s ease;
 }
 
-[data-bs-theme="dark"] .text-muted {
-    color: #7d84a3 !important; 
+.btn:active {
+    transform: scale(0.95);
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* Suavizar sombras no Dark Mode */
+[data-bs-theme="dark"] .shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-bs-theme="dark"] .shadow {
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.6) !important;
 }

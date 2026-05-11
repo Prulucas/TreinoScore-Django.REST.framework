@@ -14,6 +14,7 @@ ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -25,6 +26,24 @@ INSTALLED_APPS = [
     'core',
     'bootstrap4',
 ]
+
+JAZZMIN_SETTINGS = {
+    "site_title": "TreinoScore Admin",
+    "site_header": "TreinoScore",
+    "site_brand": "TreinoScore",
+    "welcome_sign": "Bem-vindo ao TreinoScore Admin",
+    "copyright": "TreinoScore Ltd",
+    "search_model": ["auth.User"],
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index",
+            "permissions": ["auth.view_user"]},
+    ],
+}
+
+JAZZMIN_UI_SETTINGS = {
+    "theme": "slate",
+    "dark_mode_theme": "darkly",
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

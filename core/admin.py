@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+
+class BaseAdmin(admin.ModelAdmin):
+    class Media:
+        css = {
+            'all': ('css/style.css',)  # O caminho para o seu CSS suave
+        }
