@@ -12,7 +12,6 @@ class Exercicio(Base):
     title = models.CharField('Título', max_length=100)
     description = models.TextField('Descrição', blank=True)
 
-    # Categoria muscular / tipo
     category = models.CharField(
         'Categoria',
         max_length=30,
@@ -34,10 +33,6 @@ class Exercicio(Base):
     ], default='iniciante'
     )
 
-    # Campo futuro para vídeo demonstrativo
-    # video_url = models.URLField(blank=True)
-
-    # Texto exibido no admin e consultas
     def __str__(self):
         return self.title
 
@@ -48,14 +43,9 @@ class Exercicio(Base):
 # ======================================================
 class Treino(Base):
 
-    # Aluno dono do treino
-    # Só permite usuários role=student
     student = models.ForeignKey(
         User, on_delete=models.CASCADE, limit_choices_to={'role': 'student'})
 
-    # Professor criador do treino
-    # related_name permite:
-    # professor.treinos_criados.all()
     teacher = models.ForeignKey(User, on_delete=models.CASCADE,
                                 related_name='treinos_criados', limit_choices_to={'role': 'teacher'})
     title = models.CharField(max_length=100)
@@ -80,7 +70,6 @@ class Treino(Base):
 # ======================================================
 class TreinoExercicio(Base):
 
-    # Qual treino recebe o exercício
     treino = models.ForeignKey(Treino, on_delete=models.CASCADE)
     exercicio = models.ForeignKey(Exercicio, on_delete=models.CASCADE)
     series = models.IntegerField(default=1)
@@ -88,16 +77,11 @@ class TreinoExercicio(Base):
     weight = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True)
     rest_seconds = models.IntegerField(default=30)
-    # Ordem do exercício no treino
-    # Ex: 1º, 2º, 3º...
+
     order = models.IntegerField(default=1)
 
     def __str__(self):
         return f'{self.treino} - {self.exercicio}'
 
-    # Regras extras do banco
     class Meta:
-
-        # Impede repetir mesma ordem dentro do treino
-        # Ex: dois exercícios ordem=1 no mesmo treino
         unique_together = ('treino', 'order')

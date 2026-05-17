@@ -1,16 +1,24 @@
 import os
 from pathlib import Path
 import dj_database_url
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env(
 
-SECRET_KEY = 'django-insecure-7*be7+u&7_c_pz_-ok5x43_ki#@tgu8-9uf)%r7mc%n%z&hfqj'
+    DEBUG=(bool, False)
+)
 
-DEBUG = True
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = env('SECRET_KEY')
+
+DEBUG = env('DEBUG')
+
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+# 127.0.0.1,localhostx
 
 
 INSTALLED_APPS = [
@@ -21,11 +29,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
     'users',
     'workouts',
     'core',
     'bootstrap4',
+
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 JAZZMIN_SETTINGS = {
     "site_title": "TreinoScore Admin",
@@ -83,7 +104,7 @@ WSGI_APPLICATION = 'treinoscore.wsgi.application'
 DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "TreinoScore_django",
+        "NAME": "TreinoScore_RestDJ",
         "USER": "postgres",
         "PASSWORD": "postgres",
         "HOST": "localhost",
