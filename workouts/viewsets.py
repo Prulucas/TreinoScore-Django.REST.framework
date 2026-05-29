@@ -13,11 +13,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
+from users.permissions import IsTeacherOrAdminOrReadOnly
 
 
 class TreinoViewSet(viewsets.ModelViewSet):
     serializer_class = TreinoSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsTeacherOrAdminOrReadOnly]
 
     def get_queryset(self):
         user = self.request.user
@@ -32,10 +33,6 @@ class TreinoViewSet(viewsets.ModelViewSet):
 
     # Para vincular automaticamente professor ao criar via POST
     def perform_create(self, serializer):
-        if hasattr(self.request.user, 'role') and self.request.user != 'teacher' and not self.request.user.is_superuser:
-            from rest_framework.exceptions import PermissionDenied
-            raise PermissionDenied("Apenas professores podem criar treinos.")
-
         serializer.save(teacher=self.request.user)
 
     @action(detail=True, methods=['get'], url_path='gerar_pdf')
@@ -64,7 +61,7 @@ class TreinoViewSet(viewsets.ModelViewSet):
 class ExercicioViewSet(viewsets.ModelViewSet):
     queryset = Exercicio.objects.all().order_by('title')
     serializer_class = ExercicioSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsTeacherOrAdminOrReadOnly]
 
 
 class CustomTokenLoginView(APIView):
